@@ -1,9 +1,9 @@
 import React from "react";
-//import {Jumbotron} from 'react-bootstrap';
 
 function Title() {
   return (
-    <div>
+    
+    <div className="jumbotron text-center">
       <h1>(React) Google Books Search</h1>
       <h3>
         Search for and Save Books of Interest
