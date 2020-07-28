@@ -42,9 +42,9 @@ class Savedresults extends Component {
                                         <p>{result.description}</p>
                                     <div>
                                         <a href={result.link} target="_blank" >View</a>
-                                        <button onClick={() => this.handleSave(result)} >
+                                        {/* <button onClick={() => this.handleSave(result)} >
                                                 {this.state.savedBooks.map(book => book._id).includes(result._id) ? "Unsave" : "Save"}
-                                        </button>
+                                        </button> */}
                                     </div>
 
                                     </div>

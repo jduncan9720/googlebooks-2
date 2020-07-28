@@ -3,7 +3,7 @@ const booksApi = "https://www.googleapis.com/books/v1/volumes?q="
 
 export default {
   // Gets all books
-  searchBooks: function (value) {
+  getBooks: function (value) {
     return axios.get(booksApi + value);
   },
   // Deletes the book with the given id

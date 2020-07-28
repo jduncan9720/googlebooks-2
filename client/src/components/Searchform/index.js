@@ -1,22 +1,24 @@
 import React from "react";
 
-function Searchbar(props) {
+function Searchform(props) {
 
-        return (
-            <div id="searchBar">
-                <input 
-                type="text" 
-                id="bookInput" 
-                placeholder="Book Title" 
-                size="100" 
-                onChange={props.handleChange} 
+    return (
+        <div id="searchBar">
+            <label htmlFor="search"><h2>Search for and save Books of Interest</h2></label>
+            <input
+                onChange={props.handleInputChange}
                 value={props.search}
-                />
-                <button type="submit" onClick={props.handleFormSubmit}>
+                name="search"
+                type="text"
+                className="form-control"
+                placeholder="Search a Book"
+                id="search"
+            />
+            <button type="submit" onClick={props.handleFormSubmit}>
                 Search
                 </button>
-            </div>
-        )
-    }
+        </div>
+    )
+}
 
-export default Searchbar
+export default Searchform
