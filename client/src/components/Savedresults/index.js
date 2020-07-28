@@ -1,14 +1,61 @@
 import React, { Component } from 'react'
+import API from "../../utils/API"
 
-export default class Savedresults extends Component {
+class Savedresults extends Component {
+
+    state = {
+        savedBooks: [],
+    }
+
+    componentDidMount() {
+        API.savedBooks()
+            .then(savedBooks => this.setState({ savedBooks: savedBooks }))
+            .catch(err => console.error(err));
+    }
+
+    handleSave = book => {
+        if (this.state.savedBooks.map(book => book._id).includes(book._id)) {
+            API.deleteBook(book.id)
+                .then(deletedBook => this.setState({ savedBooks: this.state.savedBooks.filter(book._id !== deletedBook._id) }))
+                .catch(err => console.error(err));
+        } else {
+            API.saveBook(book)
+                .then(savedBook => this.setState({ savedBooks: this.state.savedBooks.concat([savedBook]) }))
+                .catch(err => console.error(err));
+        }
+    }
     render() {
         return (
-            <div id="savedresults">
-                <p>
-                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                </p>
-            </div>
+            <div>
+                {!this.props.books.length ? (
+                    <h1 className="text-center">No Results to Display</h1>
+                ) : (
+                        <div>
+                            {this.props.books.map(result => (
+                                <div key={result._id}>
 
+                                    <div>
+                                        <img alt={result.title} className="img-fluid" src={result.image} />
+                                    </div>
+                                    <div>
+                                        <h5>{result.title} by {result.authors}</h5>
+                                        <p>{result.description}</p>
+                                    <div>
+                                        <a href={result.link} target="_blank" >View</a>
+                                        <button onClick={() => this.handleSave(result)} >
+                                                {this.state.savedBooks.map(book => book._id).includes(result._id) ? "Unsave" : "Save"}
+                                        </button>
+                                    </div>
+
+                                    </div>
+
+                                </div>
+                            ))}
+                        </div>
+                    )}
+            </div>
         )
     }
 }
+
+export default Savedresults
