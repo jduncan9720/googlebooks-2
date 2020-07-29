@@ -12,11 +12,11 @@ export default {
   },
   // Saves a book to the database
   saveBook: function (bookData) {
-    return axios.post("/api/books", bookData).then(result => result.data);
+    return axios.post("/api/books/", bookData).then(result => result.data);
   },
   // Get a saved book from the database
   savedBooks: function () {
-    return axios.get("/api/books").then(result => result.data);
+    return axios.get("/api/books/").then(result => result.data);
   }
 
 };

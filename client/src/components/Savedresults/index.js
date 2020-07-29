@@ -14,15 +14,11 @@ class Savedresults extends Component {
     }
 
     handleSave = book => {
-        if (this.state.savedBooks.map(book => book._id).includes(book._id)) {
-            API.deleteBook(book.id)
-                .then(deletedBook => this.setState({ savedBooks: this.state.savedBooks.filter(book._id !== deletedBook._id) }))
-                .catch(err => console.error(err));
-        } else {
+        console.log(book);
             API.saveBook(book)
                 .then(savedBook => this.setState({ savedBooks: this.state.savedBooks.concat([savedBook]) }))
                 .catch(err => console.error(err));
-        }
+        
     }
     render() {
         return (
@@ -31,8 +27,8 @@ class Savedresults extends Component {
                     <h1 className="text-center">No Results to Display</h1>
                 ) : (
                         <div>
-                            {this.props.books.map(result => (
-                                <div key={result._id}>
+                            {this.props.books.map((result, index) => (
+                                <div key={index}>
 
                                     <div>
                                         <img alt={result.title} className="img-fluid" src={result.image} />
@@ -42,9 +38,8 @@ class Savedresults extends Component {
                                         <p>{result.description}</p>
                                     <div>
                                         <a href={result.link} target="_blank" >View</a>
-                                        {/* <button onClick={() => this.handleSave(result)} >
-                                                {this.state.savedBooks.map(book => book._id).includes(result._id) ? "Unsave" : "Save"}
-                                        </button> */}
+                                        {/* conditional statement to see if _id exists and if so be a delete button instead */}
+                                        <button onClick={() => this.handleSave(result)} >Save</button>
                                     </div>
 
                                     </div>
