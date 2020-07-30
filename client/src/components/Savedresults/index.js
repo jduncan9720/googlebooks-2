@@ -8,18 +8,32 @@ class Savedresults extends Component {
     }
 
     componentDidMount() {
+        this.loadBooks()
+    }
+
+    handleSave = book => {
+        console.log(book);
+        API.saveBook(book)
+            .then(savedBook => this.setState({ savedBooks: this.state.savedBooks.concat([savedBook]) }))
+            .catch(err => console.error(err));
+    }
+
+    handleDelete = book => {
+        console.log(book);
+        API.deleteBook(book._id)
+            .then(deletedBook => {
+                console.log("Made it")
+                window.location.reload()
+            })
+            .catch(err => console.error(err));
+    }
+    
+    loadBooks = () => {
         API.savedBooks()
             .then(savedBooks => this.setState({ savedBooks: savedBooks }))
             .catch(err => console.error(err));
     }
 
-    handleSave = book => {
-        console.log(book);
-            API.saveBook(book)
-                .then(savedBook => this.setState({ savedBooks: this.state.savedBooks.concat([savedBook]) }))
-                .catch(err => console.error(err));
-        
-    }
     render() {
         return (
             <div>
@@ -36,11 +50,16 @@ class Savedresults extends Component {
                                     <div>
                                         <h5>{result.title} by {result.authors}</h5>
                                         <p>{result.description}</p>
-                                    <div>
-                                        <a href={result.link} target="_blank" >View</a>
-                                        {/* conditional statement to see if _id exists and if so be a delete button instead */}
-                                        <button onClick={() => this.handleSave(result)} >Save</button>
-                                    </div>
+                                        <div>
+                                            <a href={result.link} target="_blank" >View</a>
+                                            <div>
+                                                {result._id
+                                                    ? <button onClick={() => this.handleDelete(result)} >Delete</button>
+                                                    : <button onClick={() => this.handleSave(result)} >Save</button>
+                                                }
+                                            </div>
+
+                                        </div>
 
                                     </div>
 
