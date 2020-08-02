@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import API from "../../utils/API"
-
+import "./style.css"
 class Savedresults extends Component {
 
     state = {
@@ -27,7 +27,7 @@ class Savedresults extends Component {
             })
             .catch(err => console.error(err));
     }
-    
+
     loadBooks = () => {
         API.savedBooks()
             .then(savedBooks => this.setState({ savedBooks: savedBooks }))
@@ -40,29 +40,32 @@ class Savedresults extends Component {
                 {!this.props.books.length ? (
                     <h1 className="text-center">No Results to Display</h1>
                 ) : (
-                        <div>
+                        <div className = "container border">
+                        <br />
                             {this.props.books.map((result, index) => (
                                 <div key={index}>
 
                                     <div>
                                         <img alt={result.title} className="img-fluid" src={result.image} />
                                     </div>
+                                    <br />
                                     <div>
                                         <h5>{result.title} by {result.authors}</h5>
                                         <p>{result.description}</p>
-                                        <div>
-                                            <a href={result.link} target="_blank" >View</a>
-                                            <div>
-                                                {result._id
-                                                    ? <button onClick={() => this.handleDelete(result)} >Delete</button>
-                                                    : <button onClick={() => this.handleSave(result)} >Save</button>
-                                                }
-                                            </div>
-
+                                        <div className="leftbutton">
+                                            <button><a href={result.link} >View</a></button>
                                         </div>
-
+                                        <div className="rightbutton">
+                                            {result._id
+                                                ? <button onClick={() => this.handleDelete(result)} >Delete</button>
+                                                : <button onClick={() => this.handleSave(result)} >Save</button>
+                                            }
+                                            <br />
+                                            <br />
+                                            <hr />
+                                        </div>
                                     </div>
-
+                                            
                                 </div>
                             ))}
                         </div>

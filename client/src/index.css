@@ -18,3 +18,7 @@ body {
   border-style: solid;
   height: 300px;
 }
+
+.navbar{
+  background-color: rebeccapurple;
+  }

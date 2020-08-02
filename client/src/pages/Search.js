@@ -50,8 +50,8 @@ class Search extends React.Component {
                     handleInputChange={this.handleInputChange}
                     handleFormSubmit={this.handleFormSubmit}
                 />
+                <br />
                 <div className="container">
-                    <h2>Results</h2>
                     <Savedresults books={this.state.books} />
                 </div>
             </div>
